@@ -109,6 +109,9 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
       if (_this.props.disableAnnotation) {
         return;
       }
+      if (_this.props.ignoreModifier(e)) {
+        return;
+      }
 
       if (!!_this.props[methodName]) {
         _this.props[methodName](e);
@@ -248,6 +251,8 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
   onMouseUp: T.func,
   onMouseDown: T.func,
   onMouseMove: T.func,
+  onHideEditor: T.func,
+  ignoreModifier: T.func,
   onClick: T.func,
   children: T.object,
 

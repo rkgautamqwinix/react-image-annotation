@@ -2398,6 +2398,9 @@ module.exports = ReactPropTypesSecret;
   onChange: function onChange() {},
   onSubmit: function onSubmit() {},
   onHideEditor: function onHideEditor() {},
+  ignoreModifier: function ignoreModifier(event) {
+    return false;
+  },
   type: __WEBPACK_IMPORTED_MODULE_8__selectors__["c" /* RectangleSelector */].TYPE,
   selectors: [__WEBPACK_IMPORTED_MODULE_8__selectors__["c" /* RectangleSelector */], __WEBPACK_IMPORTED_MODULE_8__selectors__["b" /* PointSelector */], __WEBPACK_IMPORTED_MODULE_8__selectors__["a" /* OvalSelector */]],
   disableAnnotation: false,
@@ -2658,6 +2661,9 @@ var Target = Items;
       if (_this.props.disableAnnotation) {
         return;
       }
+      if (_this.props.ignoreModifier(e)) {
+        return;
+      }
 
       if (!!_this.props[methodName]) {
         _this.props[methodName](e);
@@ -2797,6 +2803,8 @@ var Target = Items;
   onMouseUp: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   onMouseDown: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   onMouseMove: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  onHideEditor: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  ignoreModifier: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   onClick: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
 

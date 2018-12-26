@@ -15,6 +15,9 @@ export default {
   onChange: function onChange() {},
   onSubmit: function onSubmit() {},
   onHideEditor: function onHideEditor() {},
+  ignoreModifier: function ignoreModifier(event) {
+    return false;
+  },
   type: RectangleSelector.TYPE,
   selectors: [RectangleSelector, PointSelector, OvalSelector],
   disableAnnotation: false,
