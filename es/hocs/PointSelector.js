@@ -1,13 +1,7 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+import { getCoordPercentage } from '../utils/offsetCoordinates';
 var MARGIN = 6;
-
-var getCoordPercentage = function getCoordPercentage(e) {
-  return {
-    x: e.nativeEvent.offsetX / e.currentTarget.offsetWidth * 100,
-    y: e.nativeEvent.offsetY / e.currentTarget.offsetHeight * 100
-  };
-};
 
 var marginToPercentage = function marginToPercentage(container) {
   return {

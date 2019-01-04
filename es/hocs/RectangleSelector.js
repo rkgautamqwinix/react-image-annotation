@@ -1,11 +1,6 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var getCoordPercentage = function getCoordPercentage(e) {
-  return {
-    x: e.nativeEvent.offsetX / e.currentTarget.offsetWidth * 100,
-    y: e.nativeEvent.offsetY / e.currentTarget.offsetHeight * 100
-  };
-};
+import { getCoordPercentage } from '../utils/offsetCoordinates';
 
 export var TYPE = 'RECTANGLE';
 

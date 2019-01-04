@@ -14,6 +14,7 @@ export default {
   innerRef: function innerRef() {},
   onChange: function onChange() {},
   onSubmit: function onSubmit() {},
+  // onCreate: () => {}, // onCreate should replace onSubmit but it would be a breaking change  
   onHideEditor: function onHideEditor() {},
   ignoreModifier: function ignoreModifier(event) {
     return false;
@@ -50,24 +51,30 @@ export default {
   renderEditor: function renderEditor(_ref2) {
     var annotation = _ref2.annotation,
         onChange = _ref2.onChange,
-        onSubmit = _ref2.onSubmit;
+        onCreate = _ref2.onCreate,
+        onUpdate = _ref2.onUpdate,
+        onDelete = _ref2.onDelete;
     return React.createElement(Editor, {
       annotation: annotation,
       onChange: onChange,
-      onSubmit: onSubmit
+      onCreate: onCreate,
+      onUpdate: onUpdate,
+      onDelete: onDelete
     });
   },
   renderHighlight: function renderHighlight(_ref3) {
     var key = _ref3.key,
         annotation = _ref3.annotation,
-        active = _ref3.active;
+        active = _ref3.active,
+        selectAnnotation = _ref3.selectAnnotation;
 
     switch (annotation.geometry.type) {
       case RectangleSelector.TYPE:
         return React.createElement(Rectangle, {
           key: key,
           annotation: annotation,
-          active: active
+          active: active,
+          selectAnnotation: selectAnnotation
         });
       case PointSelector.TYPE:
         return React.createElement(Point, {

@@ -1,4 +1,6 @@
-var _class, _temp;
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _class, _temp, _initialiseProps;
 
 var _templateObject = _taggedTemplateLiteralLoose(['\n  clear: both;\n  position: relative;\n  width: 100%;\n  &:hover ', ' {\n    opacity: 1;\n  }\n'], ['\n  clear: both;\n  position: relative;\n  width: 100%;\n  &:hover ', ' {\n    opacity: 1;\n  }\n']),
     _templateObject2 = _taggedTemplateLiteralLoose(['\n  display: block;\n  width: 100%;\n'], ['\n  display: block;\n  width: 100%;\n']),
@@ -38,134 +40,7 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
 
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
-    _this.setInnerRef = function (el) {
-      _this.container = el;
-      _this.props.relativeMousePos.innerRef(el);
-      _this.props.innerRef(el);
-    };
-
-    _this.getSelectorByType = function (type) {
-      return _this.props.selectors.find(function (s) {
-        return s.TYPE === type;
-      });
-    };
-
-    _this.getTopAnnotationAt = function (x, y) {
-      var annotations = _this.props.annotations;
-      var container = _this.container,
-          getSelectorByType = _this.getSelectorByType;
-
-
-      if (!container) return;
-
-      var intersections = annotations.map(function (annotation) {
-        var geometry = annotation.geometry;
-
-        var selector = getSelectorByType(geometry.type);
-
-        return selector.intersects({ x: x, y: y }, geometry, container) ? annotation : false;
-      }).filter(function (a) {
-        return !!a;
-      }).sort(function (a, b) {
-        var aSelector = getSelectorByType(a.geometry.type);
-        var bSelector = getSelectorByType(b.geometry.type);
-
-        return aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container);
-      });
-
-      return intersections[0];
-    };
-
-    _this.onTargetMouseMove = function (e) {
-      _this.props.relativeMousePos.onMouseMove(e);
-      _this.onMouseMove(e);
-    };
-
-    _this.onTargetMouseLeave = function (e) {
-      _this.props.relativeMousePos.onMouseLeave(e);
-    };
-
-    _this.onMouseUp = function (e) {
-      return _this.callSelectorMethod('onMouseUp', e);
-    };
-
-    _this.onMouseDown = function (e) {
-      return _this.callSelectorMethod('onMouseDown', e);
-    };
-
-    _this.onMouseMove = function (e) {
-      return _this.callSelectorMethod('onMouseMove', e);
-    };
-
-    _this.onClick = function (e) {
-      return _this.callSelectorMethod('onClick', e);
-    };
-
-    _this.onSubmit = function () {
-      _this.props.onSubmit(_this.props.value);
-    };
-
-    _this.callSelectorMethod = function (methodName, e) {
-      if (_this.props.disableAnnotation) {
-        return;
-      }
-      if (_this.props.ignoreModifier(e)) {
-        return;
-      }
-
-      if (!!_this.props[methodName]) {
-        _this.props[methodName](e);
-      } else {
-        var selector = _this.getSelectorByType(_this.props.type);
-        if (selector && selector.methods[methodName]) {
-          var value = selector.methods[methodName](_this.props.value, e);
-
-          if (typeof value === 'undefined') {
-            if (process.env.NODE_ENV !== 'production') {
-              console.error('\n              ' + methodName + ' of selector type ' + _this.props.type + ' returned undefined.\n              Make sure to explicitly return the previous state\n            ');
-            }
-          } else {
-            _this.props.onChange(value);
-          }
-        }
-      }
-    };
-
-    _this.shouldAnnotationBeActive = function (annotation, top) {
-      if (_this.props.activeAnnotations) {
-        var isActive = !!_this.props.activeAnnotations.find(function (active) {
-          return _this.props.activeAnnotationComparator(annotation, active);
-        });
-
-        return isActive || top === annotation;
-      } else {
-        return top === annotation;
-      }
-    };
-
-    _this.onShowEditor = function () {
-      if (!_this.state.showEditor) {
-        // prevent spamming parent with multiple show editor events
-        _this.setState({ showEditor: true });
-      }
-      var _this$props = _this.props,
-          value = _this$props.value,
-          onChange = _this$props.onChange;
-
-      return _this.props.renderEditor({
-        annotation: value,
-        onChange: onChange,
-        onSubmit: _this.onSubmit
-      });
-    };
-
-    _this.onHideEditor = function () {
-      if (_this.state.showEditor) {
-        // prevent spamming parent with multiple hide events
-        _this.setState({ showEditor: false });
-        _this.props.onHideEditor();
-      }
-    };
+    _initialiseProps.call(_this);
 
     _this.state = {
       showEditor: false
@@ -173,8 +48,19 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
     return _this;
   }
 
+  // Sort by area, largest to smallest
+  // using this to get stacking order right for selecting existing
+  // annotations
+
+
   // Show editor by calling renderEditor, if renderEditor returns an element it
   // will be displayed inline within Annotation
+
+
+  // Handle selection of existing annotations to support update or delete
+  //
+  // Check if parent has enabled edit or delete
+  // Make the selected annotation current and pop open the editor
 
 
   Annotation.prototype.render = function render() {
@@ -185,7 +71,6 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
         renderHighlight = props.renderHighlight,
         renderContent = props.renderContent,
         renderSelector = props.renderSelector,
-        renderEditor = props.renderEditor,
         renderOverlay = props.renderOverlay;
 
 
@@ -208,24 +93,24 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
       }),
       React.createElement(
         Items,
-        null,
-        props.annotations.map(function (annotation) {
+        {
+          onClick: this.onClick,
+          onMouseUp: this.onMouseUp,
+          onMouseDown: this.onMouseDown,
+          onMouseMove: this.onTargetMouseMove
+        },
+        this.getSortedAnnotations(props.annotations).map(function (annotation) {
           return renderHighlight({
             key: annotation.data.id,
             annotation: annotation,
-            active: _this2.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
+            active: _this2.shouldAnnotationBeActive(annotation, topAnnotationAtMouse),
+            selectAnnotation: _this2.selectAnnotation
           });
         }),
         !props.disableSelector && props.value && props.value.geometry && renderSelector({
           annotation: props.value
         })
       ),
-      React.createElement(Target, {
-        onClick: this.onClick,
-        onMouseUp: this.onMouseUp,
-        onMouseDown: this.onMouseDown,
-        onMouseMove: this.onTargetMouseMove
-      }),
       !props.disableOverlay && renderOverlay({
         type: props.type,
         annotation: props.value
@@ -276,6 +161,9 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
   }),
   onChange: T.func,
   onSubmit: T.func,
+  onCreate: T.func,
+  onUpdate: T.func,
+  onDelete: T.func,
 
   activeAnnotationComparator: T.func,
   activeAnnotations: T.arrayOf(T.any),
@@ -291,4 +179,161 @@ export default compose(isMouseHovering(), withRelativeMousePos())((_temp = _clas
 
   disableOverlay: T.bool,
   renderOverlay: T.func.isRequired
-}, _class.defaultProps = defaultProps, _temp));
+}, _class.defaultProps = defaultProps, _initialiseProps = function _initialiseProps() {
+  var _this3 = this;
+
+  this.setInnerRef = function (el) {
+    _this3.container = el;
+    _this3.props.relativeMousePos.innerRef(el);
+    _this3.props.innerRef(el);
+  };
+
+  this.getSelectorByType = function (type) {
+    return _this3.props.selectors.find(function (s) {
+      return s.TYPE === type;
+    });
+  };
+
+  this.getSortedAnnotations = function (annotations) {
+    var container = _this3.container,
+        getSelectorByType = _this3.getSelectorByType;
+
+    var ordered = annotations.filter(function (a) {
+      return !!a;
+    }).sort(function (a, b) {
+      var aSelector = getSelectorByType(a.geometry.type);
+      var bSelector = getSelectorByType(b.geometry.type);
+
+      return -(aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container));
+    });
+    return ordered;
+  };
+
+  this.getTopAnnotationAt = function (x, y) {
+    var annotations = _this3.props.annotations;
+    var container = _this3.container,
+        getSelectorByType = _this3.getSelectorByType;
+
+
+    if (!container) return;
+
+    var intersections = annotations.map(function (annotation) {
+      var geometry = annotation.geometry;
+
+      var selector = getSelectorByType(geometry.type);
+
+      return selector.intersects({ x: x, y: y }, geometry, container) ? annotation : false;
+    }).filter(function (a) {
+      return !!a;
+    }).sort(function (a, b) {
+      var aSelector = getSelectorByType(a.geometry.type);
+      var bSelector = getSelectorByType(b.geometry.type);
+
+      return aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container);
+    });
+
+    return intersections[0];
+  };
+
+  this.onTargetMouseMove = function (e) {
+    _this3.props.relativeMousePos.onMouseMove(e);
+    _this3.onMouseMove(e);
+  };
+
+  this.onTargetMouseLeave = function (e) {
+    _this3.props.relativeMousePos.onMouseLeave(e);
+  };
+
+  this.onMouseUp = function (e) {
+    return _this3.callSelectorMethod('onMouseUp', e);
+  };
+
+  this.onMouseDown = function (e) {
+    return _this3.callSelectorMethod('onMouseDown', e);
+  };
+
+  this.onMouseMove = function (e) {
+    return _this3.callSelectorMethod('onMouseMove', e);
+  };
+
+  this.onClick = function (e) {
+    return _this3.callSelectorMethod('onClick', e);
+  };
+
+  this.onCreate = function () {
+    if ('onCreate' in _this3.props) {
+      _this3.props.onCreate(_this3.props.value);
+    } else {
+      // deprecate onSubmit for more explicit 'onCreate' name
+      _this3.props.onSubmit(_this3.props.value);
+    }
+  };
+
+  this.callSelectorMethod = function (methodName, e) {
+    if (_this3.props.disableAnnotation) {
+      return;
+    }
+    if (_this3.props.ignoreModifier(e)) {
+      return;
+    }
+
+    if (!!_this3.props[methodName]) {
+      _this3.props[methodName](e);
+    } else {
+      var selector = _this3.getSelectorByType(_this3.props.type);
+      if (selector && selector.methods[methodName]) {
+        var value = selector.methods[methodName](_this3.props.value, e);
+
+        if (typeof value === 'undefined') {
+          if (process.env.NODE_ENV !== 'production') {
+            console.error('\n              ' + methodName + ' of selector type ' + _this3.props.type + ' returned undefined.\n              Make sure to explicitly return the previous state\n            ');
+          }
+        } else {
+          _this3.props.onChange(value);
+        }
+      }
+    }
+  };
+
+  this.shouldAnnotationBeActive = function (annotation, top) {
+    if (_this3.props.activeAnnotations) {
+      var isActive = !!_this3.props.activeAnnotations.find(function (active) {
+        return _this3.props.activeAnnotationComparator(annotation, active);
+      });
+
+      return isActive || top === annotation;
+    } else {
+      return top === annotation;
+    }
+  };
+
+  this.onShowEditor = function () {
+    if (!_this3.state.showEditor) {
+      // prevent spamming parent with multiple show editor events
+      _this3.setState({ showEditor: true });
+    }
+    var props = _this3.props;
+    return _this3.props.renderEditor({
+      annotation: props.value,
+      onChange: props.onChange,
+      onCreate: _this3.onCreate,
+      onUpdate: props.onUpdate,
+      onDelete: props.onDelete
+    });
+  };
+
+  this.onHideEditor = function () {
+    if (_this3.state.showEditor) {
+      // prevent spamming parent with multiple hide events
+      _this3.setState({ showEditor: false });
+      _this3.props.onHideEditor();
+    }
+  };
+
+  this.selectAnnotation = function (annotation) {
+    if ('onUpdate' in _this3.props || 'onDelete' in _this3.props) {
+      var update = _extends({}, annotation, { selection: _extends({}, annotation.selection, { showEditor: true, isUpdate: true }) });
+      _this3.props.onChange(update);
+    }
+  };
+}, _temp));

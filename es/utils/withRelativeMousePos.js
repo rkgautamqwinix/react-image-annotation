@@ -7,6 +7,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 import React, { PureComponent as Component } from 'react';
+import { getOffsetCoordPercentage } from './offsetCoordinates';
 
 var withRelativeMousePos = function withRelativeMousePos() {
   var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'relativeMousePos';
@@ -26,10 +27,8 @@ var withRelativeMousePos = function withRelativeMousePos() {
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = { x: null, y: null }, _this.innerRef = function (el) {
           _this.container = el;
         }, _this.onMouseMove = function (e) {
-          _this.setState({
-            x: e.nativeEvent.offsetX / _this.container.width * 100,
-            y: e.nativeEvent.offsetY / _this.container.height * 100
-          });
+          var xystate = getOffsetCoordPercentage(e, _this.container);
+          _this.setState(xystate);
         }, _this.onMouseLeave = function (e) {
           _this.setState({ x: null, y: null });
         }, _temp), _possibleConstructorReturn(_this, _ret);

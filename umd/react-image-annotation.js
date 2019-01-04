@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,17 +97,17 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 /* unused harmony export withTheme */
 /* unused harmony export ServerStyleSheet */
 /* unused harmony export StyleSheetManager */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_is_plain_object__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_is_plain_object__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_is_plain_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_is_plain_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stylis__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stylis__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stylis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_stylis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_stylis_rule_sheet__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_stylis_rule_sheet__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_stylis_rule_sheet___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_stylis_rule_sheet__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_hoist_non_react_statics__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_hoist_non_react_statics__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_hoist_non_react_statics__);
 
 
@@ -2142,10 +2142,50 @@ var styled = _styled(StyledComponent, constructWithOptions);
 /* harmony default export */ __webpack_exports__["a"] = (styled);
 //# sourceMappingURL=styled-components.browser.es.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(15)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)(module)))
 
 /***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getOffsetCoordPercentage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getCoordPercentage; });
+function getOffsetCoordinates(e, container) {
+    // nativeEvent.offsetX gives inconsistent results when dragging
+    // up and to the left rather than the more natural down and to the
+    // right. The reason could be browser implementation (it is still experimental)
+    // or it could be that nativeEvent offsets are based on target rather than
+    // currentTarget.
+    // To keep consistent behavior of the selector use the bounding client rect.
+    var rect = container.getBoundingClientRect();
+    var offsetX = e.clientX - rect.x;
+    var offsetY = e.clientY - rect.y;
+    return {
+        offsetX: offsetX,
+        offsetY: offsetY
+    };
+}
+
+function getOffsetCoordPercentage(e, container) {
+    var _getOffsetCoordinates = getOffsetCoordinates(e, container),
+        offsetX = _getOffsetCoordinates.offsetX,
+        offsetY = _getOffsetCoordinates.offsetY;
+
+    return {
+        x: offsetX / container.offsetWidth * 100,
+        y: offsetY / container.offsetHeight * 100
+    };
+}
+
+function getCoordPercentage(e) {
+    return getOffsetCoordPercentage(e, e.currentTarget);
+}
+
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -2170,7 +2210,7 @@ if (true) {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(12)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(13)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
@@ -2179,7 +2219,7 @@ if (true) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2221,7 +2261,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2280,7 +2320,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2294,7 +2334,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(3);
+var emptyFunction = __webpack_require__(4);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -2348,7 +2388,7 @@ if (true) {
 module.exports = warning;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2367,20 +2407,20 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Editor__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FancyRectangle__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Rectangle__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Oval__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Content__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Overlay__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selectors__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Editor__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FancyRectangle__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Rectangle__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Oval__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Content__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Overlay__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selectors__ = __webpack_require__(32);
 
 
 
@@ -2397,6 +2437,7 @@ module.exports = ReactPropTypesSecret;
   innerRef: function innerRef() {},
   onChange: function onChange() {},
   onSubmit: function onSubmit() {},
+  // onCreate: () => {}, // onCreate should replace onSubmit but it would be a breaking change  
   onHideEditor: function onHideEditor() {},
   ignoreModifier: function ignoreModifier(event) {
     return false;
@@ -2433,24 +2474,30 @@ module.exports = ReactPropTypesSecret;
   renderEditor: function renderEditor(_ref2) {
     var annotation = _ref2.annotation,
         onChange = _ref2.onChange,
-        onSubmit = _ref2.onSubmit;
+        onCreate = _ref2.onCreate,
+        onUpdate = _ref2.onUpdate,
+        onDelete = _ref2.onDelete;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Editor__["a" /* default */], {
       annotation: annotation,
       onChange: onChange,
-      onSubmit: onSubmit
+      onCreate: onCreate,
+      onUpdate: onUpdate,
+      onDelete: onDelete
     });
   },
   renderHighlight: function renderHighlight(_ref3) {
     var key = _ref3.key,
         annotation = _ref3.annotation,
-        active = _ref3.active;
+        active = _ref3.active,
+        selectAnnotation = _ref3.selectAnnotation;
 
     switch (annotation.geometry.type) {
       case __WEBPACK_IMPORTED_MODULE_8__selectors__["c" /* RectangleSelector */].TYPE:
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Rectangle__["a" /* default */], {
           key: key,
           annotation: annotation,
-          active: active
+          active: active,
+          selectAnnotation: selectAnnotation
         });
       case __WEBPACK_IMPORTED_MODULE_8__selectors__["b" /* PointSelector */].TYPE:
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Point__["a" /* default */], {
@@ -2498,7 +2545,7 @@ module.exports = ReactPropTypesSecret;
 });
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2515,20 +2562,20 @@ function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return s
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_1_styled_components__["a" /* default */].div(_templateObject));
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(10);
+module.exports = __webpack_require__(11);
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Annotation__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_defaultProps__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Annotation__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_defaultProps__ = __webpack_require__(8);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return __WEBPACK_IMPORTED_MODULE_1__components_defaultProps__["a"]; });
 
 
@@ -2536,21 +2583,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__components_Annotation__["a" /* default */]);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_styled_components__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_compose__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_isMouseHovering__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_withRelativeMousePos__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__defaultProps__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Overlay__ = __webpack_require__(8);
-var _class, _temp;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_compose__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_isMouseHovering__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_withRelativeMousePos__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__defaultProps__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Overlay__ = __webpack_require__(9);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _class, _temp, _initialiseProps;
 
 var _templateObject = _taggedTemplateLiteralLoose(['\n  clear: both;\n  position: relative;\n  width: 100%;\n  &:hover ', ' {\n    opacity: 1;\n  }\n'], ['\n  clear: both;\n  position: relative;\n  width: 100%;\n  &:hover ', ' {\n    opacity: 1;\n  }\n']),
     _templateObject2 = _taggedTemplateLiteralLoose(['\n  display: block;\n  width: 100%;\n'], ['\n  display: block;\n  width: 100%;\n']),
@@ -2590,134 +2639,7 @@ var Target = Items;
 
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
-    _this.setInnerRef = function (el) {
-      _this.container = el;
-      _this.props.relativeMousePos.innerRef(el);
-      _this.props.innerRef(el);
-    };
-
-    _this.getSelectorByType = function (type) {
-      return _this.props.selectors.find(function (s) {
-        return s.TYPE === type;
-      });
-    };
-
-    _this.getTopAnnotationAt = function (x, y) {
-      var annotations = _this.props.annotations;
-      var container = _this.container,
-          getSelectorByType = _this.getSelectorByType;
-
-
-      if (!container) return;
-
-      var intersections = annotations.map(function (annotation) {
-        var geometry = annotation.geometry;
-
-        var selector = getSelectorByType(geometry.type);
-
-        return selector.intersects({ x: x, y: y }, geometry, container) ? annotation : false;
-      }).filter(function (a) {
-        return !!a;
-      }).sort(function (a, b) {
-        var aSelector = getSelectorByType(a.geometry.type);
-        var bSelector = getSelectorByType(b.geometry.type);
-
-        return aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container);
-      });
-
-      return intersections[0];
-    };
-
-    _this.onTargetMouseMove = function (e) {
-      _this.props.relativeMousePos.onMouseMove(e);
-      _this.onMouseMove(e);
-    };
-
-    _this.onTargetMouseLeave = function (e) {
-      _this.props.relativeMousePos.onMouseLeave(e);
-    };
-
-    _this.onMouseUp = function (e) {
-      return _this.callSelectorMethod('onMouseUp', e);
-    };
-
-    _this.onMouseDown = function (e) {
-      return _this.callSelectorMethod('onMouseDown', e);
-    };
-
-    _this.onMouseMove = function (e) {
-      return _this.callSelectorMethod('onMouseMove', e);
-    };
-
-    _this.onClick = function (e) {
-      return _this.callSelectorMethod('onClick', e);
-    };
-
-    _this.onSubmit = function () {
-      _this.props.onSubmit(_this.props.value);
-    };
-
-    _this.callSelectorMethod = function (methodName, e) {
-      if (_this.props.disableAnnotation) {
-        return;
-      }
-      if (_this.props.ignoreModifier(e)) {
-        return;
-      }
-
-      if (!!_this.props[methodName]) {
-        _this.props[methodName](e);
-      } else {
-        var selector = _this.getSelectorByType(_this.props.type);
-        if (selector && selector.methods[methodName]) {
-          var value = selector.methods[methodName](_this.props.value, e);
-
-          if (typeof value === 'undefined') {
-            if (true) {
-              console.error('\n              ' + methodName + ' of selector type ' + _this.props.type + ' returned undefined.\n              Make sure to explicitly return the previous state\n            ');
-            }
-          } else {
-            _this.props.onChange(value);
-          }
-        }
-      }
-    };
-
-    _this.shouldAnnotationBeActive = function (annotation, top) {
-      if (_this.props.activeAnnotations) {
-        var isActive = !!_this.props.activeAnnotations.find(function (active) {
-          return _this.props.activeAnnotationComparator(annotation, active);
-        });
-
-        return isActive || top === annotation;
-      } else {
-        return top === annotation;
-      }
-    };
-
-    _this.onShowEditor = function () {
-      if (!_this.state.showEditor) {
-        // prevent spamming parent with multiple show editor events
-        _this.setState({ showEditor: true });
-      }
-      var _this$props = _this.props,
-          value = _this$props.value,
-          onChange = _this$props.onChange;
-
-      return _this.props.renderEditor({
-        annotation: value,
-        onChange: onChange,
-        onSubmit: _this.onSubmit
-      });
-    };
-
-    _this.onHideEditor = function () {
-      if (_this.state.showEditor) {
-        // prevent spamming parent with multiple hide events
-        _this.setState({ showEditor: false });
-        _this.props.onHideEditor();
-      }
-    };
+    _initialiseProps.call(_this);
 
     _this.state = {
       showEditor: false
@@ -2725,8 +2647,19 @@ var Target = Items;
     return _this;
   }
 
+  // Sort by area, largest to smallest
+  // using this to get stacking order right for selecting existing
+  // annotations
+
+
   // Show editor by calling renderEditor, if renderEditor returns an element it
   // will be displayed inline within Annotation
+
+
+  // Handle selection of existing annotations to support update or delete
+  //
+  // Check if parent has enabled edit or delete
+  // Make the selected annotation current and pop open the editor
 
 
   Annotation.prototype.render = function render() {
@@ -2737,7 +2670,6 @@ var Target = Items;
         renderHighlight = props.renderHighlight,
         renderContent = props.renderContent,
         renderSelector = props.renderSelector,
-        renderEditor = props.renderEditor,
         renderOverlay = props.renderOverlay;
 
 
@@ -2760,24 +2692,24 @@ var Target = Items;
       }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         Items,
-        null,
-        props.annotations.map(function (annotation) {
+        {
+          onClick: this.onClick,
+          onMouseUp: this.onMouseUp,
+          onMouseDown: this.onMouseDown,
+          onMouseMove: this.onTargetMouseMove
+        },
+        this.getSortedAnnotations(props.annotations).map(function (annotation) {
           return renderHighlight({
             key: annotation.data.id,
             annotation: annotation,
-            active: _this2.shouldAnnotationBeActive(annotation, topAnnotationAtMouse)
+            active: _this2.shouldAnnotationBeActive(annotation, topAnnotationAtMouse),
+            selectAnnotation: _this2.selectAnnotation
           });
         }),
         !props.disableSelector && props.value && props.value.geometry && renderSelector({
           annotation: props.value
         })
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Target, {
-        onClick: this.onClick,
-        onMouseUp: this.onMouseUp,
-        onMouseDown: this.onMouseDown,
-        onMouseMove: this.onTargetMouseMove
-      }),
       !props.disableOverlay && renderOverlay({
         type: props.type,
         annotation: props.value
@@ -2828,6 +2760,9 @@ var Target = Items;
   }),
   onChange: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   onSubmit: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  onCreate: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  onUpdate: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  onDelete: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
 
   activeAnnotationComparator: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   activeAnnotations: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.arrayOf(__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any),
@@ -2843,10 +2778,167 @@ var Target = Items;
 
   disableOverlay: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   renderOverlay: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
-}, _class.defaultProps = __WEBPACK_IMPORTED_MODULE_6__defaultProps__["a" /* default */], _temp)));
+}, _class.defaultProps = __WEBPACK_IMPORTED_MODULE_6__defaultProps__["a" /* default */], _initialiseProps = function _initialiseProps() {
+  var _this3 = this;
+
+  this.setInnerRef = function (el) {
+    _this3.container = el;
+    _this3.props.relativeMousePos.innerRef(el);
+    _this3.props.innerRef(el);
+  };
+
+  this.getSelectorByType = function (type) {
+    return _this3.props.selectors.find(function (s) {
+      return s.TYPE === type;
+    });
+  };
+
+  this.getSortedAnnotations = function (annotations) {
+    var container = _this3.container,
+        getSelectorByType = _this3.getSelectorByType;
+
+    var ordered = annotations.filter(function (a) {
+      return !!a;
+    }).sort(function (a, b) {
+      var aSelector = getSelectorByType(a.geometry.type);
+      var bSelector = getSelectorByType(b.geometry.type);
+
+      return -(aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container));
+    });
+    return ordered;
+  };
+
+  this.getTopAnnotationAt = function (x, y) {
+    var annotations = _this3.props.annotations;
+    var container = _this3.container,
+        getSelectorByType = _this3.getSelectorByType;
+
+
+    if (!container) return;
+
+    var intersections = annotations.map(function (annotation) {
+      var geometry = annotation.geometry;
+
+      var selector = getSelectorByType(geometry.type);
+
+      return selector.intersects({ x: x, y: y }, geometry, container) ? annotation : false;
+    }).filter(function (a) {
+      return !!a;
+    }).sort(function (a, b) {
+      var aSelector = getSelectorByType(a.geometry.type);
+      var bSelector = getSelectorByType(b.geometry.type);
+
+      return aSelector.area(a.geometry, container) - bSelector.area(b.geometry, container);
+    });
+
+    return intersections[0];
+  };
+
+  this.onTargetMouseMove = function (e) {
+    _this3.props.relativeMousePos.onMouseMove(e);
+    _this3.onMouseMove(e);
+  };
+
+  this.onTargetMouseLeave = function (e) {
+    _this3.props.relativeMousePos.onMouseLeave(e);
+  };
+
+  this.onMouseUp = function (e) {
+    return _this3.callSelectorMethod('onMouseUp', e);
+  };
+
+  this.onMouseDown = function (e) {
+    return _this3.callSelectorMethod('onMouseDown', e);
+  };
+
+  this.onMouseMove = function (e) {
+    return _this3.callSelectorMethod('onMouseMove', e);
+  };
+
+  this.onClick = function (e) {
+    return _this3.callSelectorMethod('onClick', e);
+  };
+
+  this.onCreate = function () {
+    if ('onCreate' in _this3.props) {
+      _this3.props.onCreate(_this3.props.value);
+    } else {
+      // deprecate onSubmit for more explicit 'onCreate' name
+      _this3.props.onSubmit(_this3.props.value);
+    }
+  };
+
+  this.callSelectorMethod = function (methodName, e) {
+    if (_this3.props.disableAnnotation) {
+      return;
+    }
+    if (_this3.props.ignoreModifier(e)) {
+      return;
+    }
+
+    if (!!_this3.props[methodName]) {
+      _this3.props[methodName](e);
+    } else {
+      var selector = _this3.getSelectorByType(_this3.props.type);
+      if (selector && selector.methods[methodName]) {
+        var value = selector.methods[methodName](_this3.props.value, e);
+
+        if (typeof value === 'undefined') {
+          if (true) {
+            console.error('\n              ' + methodName + ' of selector type ' + _this3.props.type + ' returned undefined.\n              Make sure to explicitly return the previous state\n            ');
+          }
+        } else {
+          _this3.props.onChange(value);
+        }
+      }
+    }
+  };
+
+  this.shouldAnnotationBeActive = function (annotation, top) {
+    if (_this3.props.activeAnnotations) {
+      var isActive = !!_this3.props.activeAnnotations.find(function (active) {
+        return _this3.props.activeAnnotationComparator(annotation, active);
+      });
+
+      return isActive || top === annotation;
+    } else {
+      return top === annotation;
+    }
+  };
+
+  this.onShowEditor = function () {
+    if (!_this3.state.showEditor) {
+      // prevent spamming parent with multiple show editor events
+      _this3.setState({ showEditor: true });
+    }
+    var props = _this3.props;
+    return _this3.props.renderEditor({
+      annotation: props.value,
+      onChange: props.onChange,
+      onCreate: _this3.onCreate,
+      onUpdate: props.onUpdate,
+      onDelete: props.onDelete
+    });
+  };
+
+  this.onHideEditor = function () {
+    if (_this3.state.showEditor) {
+      // prevent spamming parent with multiple hide events
+      _this3.setState({ showEditor: false });
+      _this3.props.onHideEditor();
+    }
+  };
+
+  this.selectAnnotation = function (annotation) {
+    if ('onUpdate' in _this3.props || 'onDelete' in _this3.props) {
+      var update = _extends({}, annotation, { selection: _extends({}, annotation.selection, { showEditor: true, isUpdate: true }) });
+      _this3.props.onChange(update);
+    }
+  };
+}, _temp)));
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2859,13 +2951,13 @@ var Target = Items;
 
 
 
-var emptyFunction = __webpack_require__(3);
-var invariant = __webpack_require__(4);
-var warning = __webpack_require__(5);
-var assign = __webpack_require__(13);
+var emptyFunction = __webpack_require__(4);
+var invariant = __webpack_require__(5);
+var warning = __webpack_require__(6);
+var assign = __webpack_require__(14);
 
-var ReactPropTypesSecret = __webpack_require__(6);
-var checkPropTypes = __webpack_require__(14);
+var ReactPropTypesSecret = __webpack_require__(7);
+var checkPropTypes = __webpack_require__(15);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -3395,7 +3487,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3492,7 +3584,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3506,9 +3598,9 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 if (true) {
-  var invariant = __webpack_require__(4);
-  var warning = __webpack_require__(5);
-  var ReactPropTypesSecret = __webpack_require__(6);
+  var invariant = __webpack_require__(5);
+  var warning = __webpack_require__(6);
+  var ReactPropTypesSecret = __webpack_require__(7);
   var loggedTypeFailures = {};
 }
 
@@ -3558,7 +3650,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -3588,7 +3680,7 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3601,7 +3693,7 @@ module.exports = function(originalModule) {
 
 
 
-var isObject = __webpack_require__(17);
+var isObject = __webpack_require__(18);
 
 function isObjectObject(o) {
   return isObject(o) === true
@@ -3632,7 +3724,7 @@ module.exports = function isPlainObject(o) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3651,7 +3743,7 @@ module.exports = function isObject(val) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -5280,7 +5372,7 @@ module.exports = function isObject(val) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (factory) {
@@ -5334,7 +5426,7 @@ module.exports = function isObject(val) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5391,7 +5483,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5419,7 +5511,7 @@ function compose() {
 }
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5509,12 +5601,13 @@ var isMouseHovering = function isMouseHovering() {
 /* harmony default export */ __webpack_exports__["a"] = (isMouseHovering);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__offsetCoordinates__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5522,6 +5615,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -5543,10 +5637,8 @@ var withRelativeMousePos = function withRelativeMousePos() {
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = { x: null, y: null }, _this.innerRef = function (el) {
           _this.container = el;
         }, _this.onMouseMove = function (e) {
-          _this.setState({
-            x: e.nativeEvent.offsetX / _this.container.width * 100,
-            y: e.nativeEvent.offsetY / _this.container.height * 100
-          });
+          var xystate = Object(__WEBPACK_IMPORTED_MODULE_1__offsetCoordinates__["b" /* getOffsetCoordPercentage */])(e, _this.container);
+          _this.setState(xystate);
         }, _this.onMouseLeave = function (e) {
           _this.setState({ x: null, y: null });
         }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -5578,7 +5670,7 @@ var withRelativeMousePos = function withRelativeMousePos() {
 /* harmony default export */ __webpack_exports__["a"] = (withRelativeMousePos);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5610,14 +5702,14 @@ function Point(props) {
 /* harmony default export */ __webpack_exports__["a"] = (Point);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_styled_components__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TextEditor__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TextEditor__ = __webpack_require__(27);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _templateObject = _taggedTemplateLiteralLoose(['\n  from {\n    opacity: 0;\n    transform: scale(0);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n'], ['\n  from {\n    opacity: 0;\n    transform: scale(0);\n  }\n\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n']),
@@ -5634,7 +5726,9 @@ var fadeInScale = Object(__WEBPACK_IMPORTED_MODULE_1_styled_components__["b" /* 
 var Container = __WEBPACK_IMPORTED_MODULE_1_styled_components__["a" /* default */].div(_templateObject2, fadeInScale);
 
 function Editor(props) {
-  var geometry = props.annotation.geometry;
+  var _props$annotation = props.annotation,
+      geometry = _props$annotation.geometry,
+      selection = _props$annotation.selection;
 
   if (!geometry) return null;
 
@@ -5649,6 +5743,7 @@ function Editor(props) {
       }, props.style)
     },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TextEditor__["a" /* default */], {
+      annotation: props.annotation,
       onChange: function onChange(e) {
         return props.onChange(_extends({}, props.annotation, {
           data: _extends({}, props.annotation.data, {
@@ -5656,7 +5751,10 @@ function Editor(props) {
           })
         }));
       },
-      onSubmit: props.onSubmit,
+      isUpdate: selection.isUpdate,
+      onSubmit: props.onCreate,
+      onUpdate: props.onUpdate,
+      onDelete: props.onDelete,
       value: props.annotation.data && props.annotation.data.text
     })
   );
@@ -5670,7 +5768,7 @@ Editor.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (Editor);
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5678,7 +5776,7 @@ Editor.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_styled_components__ = __webpack_require__(1);
 var _templateObject = _taggedTemplateLiteralLoose(['\n  padding: 8px 16px;\n\n  textarea {\n    border: 0;\n    font-size: 14px;\n    margin: 6px 0;\n    min-height: 60px;\n    outline: 0;\n  }\n'], ['\n  padding: 8px 16px;\n\n  textarea {\n    border: 0;\n    font-size: 14px;\n    margin: 6px 0;\n    min-height: 60px;\n    outline: 0;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteralLoose(['\n  background: whitesmoke;\n  border: 0;\n  box-sizing: border-box;\n  color: #363636;\n  cursor: pointer;\n  font-size: 1rem;\n  margin: 0;\n  outline: 0;\n  padding: 8px 16px;\n  text-align: center;\n  text-shadow: 0 1px 0 rgba(0,0,0,0.1);\n  width: 100%;\n\n  transition: background 0.21s ease-in-out;\n\n  &:focus, &:hover {\n    background: #eeeeee;\n  }\n'], ['\n  background: whitesmoke;\n  border: 0;\n  box-sizing: border-box;\n  color: #363636;\n  cursor: pointer;\n  font-size: 1rem;\n  margin: 0;\n  outline: 0;\n  padding: 8px 16px;\n  text-align: center;\n  text-shadow: 0 1px 0 rgba(0,0,0,0.1);\n  width: 100%;\n\n  transition: background 0.21s ease-in-out;\n\n  &:focus, &:hover {\n    background: #eeeeee;\n  }\n']);
+    _templateObject2 = _taggedTemplateLiteralLoose(['\n  background: whitesmoke;\n  border: 0;\n  box-sizing: border-box;\n  color: #363636;\n  cursor: pointer;\n  font-size: 1rem;\n  margin: 0;\n  outline: 0;\n  padding: 8px 16px;\n  text-align: center;\n  text-shadow: 0 1px 0 rgba(0,0,0,0.1);\n  width: 100%;\n  display: inline-block;\n\n  transition: background 0.21s ease-in-out;\n\n  &:focus, &:hover {\n    background: #eeeeee;\n  }\n'], ['\n  background: whitesmoke;\n  border: 0;\n  box-sizing: border-box;\n  color: #363636;\n  cursor: pointer;\n  font-size: 1rem;\n  margin: 0;\n  outline: 0;\n  padding: 8px 16px;\n  text-align: center;\n  text-shadow: 0 1px 0 rgba(0,0,0,0.1);\n  width: 100%;\n  display: inline-block;\n\n  transition: background 0.21s ease-in-out;\n\n  &:focus, &:hover {\n    background: #eeeeee;\n  }\n']);
 
 function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return strings; }
 
@@ -5690,6 +5788,35 @@ var Inner = __WEBPACK_IMPORTED_MODULE_1_styled_components__["a" /* default */].d
 var Button = __WEBPACK_IMPORTED_MODULE_1_styled_components__["a" /* default */].div(_templateObject2);
 
 function TextEditor(props) {
+  var button = null;
+
+  if (props.isUpdate) {
+    var width = !props.onUpdate != !props.onDelete ? '100%' : '50%'; // logical XOR
+    button = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      props.onUpdate && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        Button,
+        { onClick: function onClick() {
+            return props.onUpdate(props.annotation);
+          }, style: { width: width } },
+        'Update'
+      ),
+      props.onDelete && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        Button,
+        { onClick: function onClick() {
+            return props.onDelete(props.annotation);
+          }, style: { width: width } },
+        'Delete'
+      )
+    );
+  } else {
+    button = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      Button,
+      { onClick: props.onSubmit },
+      'Submit'
+    );
+  }
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.Fragment,
     null,
@@ -5704,20 +5831,14 @@ function TextEditor(props) {
         value: props.value
       })
     ),
-    props.value && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      Button,
-      {
-        onClick: props.onSubmit
-      },
-      'Submit'
-    )
+    props.value && button
   );
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (TextEditor);
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5787,7 +5908,7 @@ FancyRectangle.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (FancyRectangle);
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5796,7 +5917,7 @@ FancyRectangle.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_styled_components__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteralLoose(['\n  border: dashed 2px black;\n  box-shadow: 0px 0px 1px 1px white inset;\n  box-sizing: border-box;\n  transition: box-shadow 0.21s ease-in-out;\n'], ['\n  border: dashed 2px black;\n  box-shadow: 0px 0px 1px 1px white inset;\n  box-sizing: border-box;\n  transition: box-shadow 0.21s ease-in-out;\n']);
+var _templateObject = _taggedTemplateLiteralLoose(['\n  border: dashed 2px black;\n  box-shadow: 0px 0px 1px 1px white inset;\n  box-sizing: border-box;\n  transition: box-shadow 0.21s ease-in-out;\n  &:hover {\n    box-shadow: 0 0 1px 1px yellow inset;\n  }\n'], ['\n  border: dashed 2px black;\n  box-shadow: 0px 0px 1px 1px white inset;\n  box-sizing: border-box;\n  transition: box-shadow 0.21s ease-in-out;\n  &:hover {\n    box-shadow: 0 0 1px 1px yellow inset;\n  }\n']);
 
 function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return strings; }
 
@@ -5817,9 +5938,11 @@ function Rectangle(props) {
       left: geometry.x + '%',
       top: geometry.y + '%',
       height: geometry.height + '%',
-      width: geometry.width + '%',
-      boxShadow: props.active && '0 0 1px 1px yellow inset'
-    }, props.style)
+      width: geometry.width + '%'
+    }, props.style),
+    onClick: function onClick() {
+      return props.selectAnnotation(props.annotation);
+    }
   });
 }
 
@@ -5831,7 +5954,7 @@ Rectangle.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (Rectangle);
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5875,7 +5998,7 @@ Oval.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (Oval);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5921,22 +6044,22 @@ Content.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (Content);
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hocs_RectangleSelector__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hocs_RectangleSelector__ = __webpack_require__(33);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__hocs_RectangleSelector__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hocs_PointSelector__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hocs_PointSelector__ = __webpack_require__(34);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__hocs_PointSelector__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hocs_OvalSelector__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hocs_OvalSelector__ = __webpack_require__(35);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__hocs_OvalSelector__["a"]; });
 
 
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5944,14 +6067,10 @@ Content.defaultProps = {
 /* unused harmony export intersects */
 /* unused harmony export area */
 /* unused harmony export methods */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var getCoordPercentage = function getCoordPercentage(e) {
-  return {
-    x: e.nativeEvent.offsetX / e.currentTarget.offsetWidth * 100,
-    y: e.nativeEvent.offsetY / e.currentTarget.offsetHeight * 100
-  };
-};
+
 
 var TYPE = 'RECTANGLE';
 
@@ -5974,7 +6093,7 @@ function area(geometry) {
 var methods = {
   onMouseDown: function onMouseDown(annotation, e) {
     if (!annotation.selection) {
-      var _getCoordPercentage = getCoordPercentage(e),
+      var _getCoordPercentage = Object(__WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__["a" /* getCoordPercentage */])(e),
           anchorX = _getCoordPercentage.x,
           anchorY = _getCoordPercentage.y;
 
@@ -6022,7 +6141,7 @@ var methods = {
           anchorX = _annotation$selection.anchorX,
           anchorY = _annotation$selection.anchorY;
 
-      var _getCoordPercentage2 = getCoordPercentage(e),
+      var _getCoordPercentage2 = Object(__WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__["a" /* getCoordPercentage */])(e),
           newX = _getCoordPercentage2.x,
           newY = _getCoordPercentage2.y;
 
@@ -6052,7 +6171,7 @@ var methods = {
 });
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6060,16 +6179,11 @@ var methods = {
 /* unused harmony export intersects */
 /* unused harmony export area */
 /* unused harmony export methods */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var MARGIN = 6;
 
-var getCoordPercentage = function getCoordPercentage(e) {
-  return {
-    x: e.nativeEvent.offsetX / e.currentTarget.offsetWidth * 100,
-    y: e.nativeEvent.offsetY / e.currentTarget.offsetHeight * 100
-  };
-};
+var MARGIN = 6;
 
 var marginToPercentage = function marginToPercentage(container) {
   return {
@@ -6112,7 +6226,7 @@ var methods = {
           showEditor: true,
           mode: 'EDITING'
         }),
-        geometry: _extends({}, annotation.geometry, getCoordPercentage(e), {
+        geometry: _extends({}, annotation.geometry, Object(__WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__["a" /* getCoordPercentage */])(e), {
           width: 0,
           height: 0,
           type: TYPE
@@ -6132,7 +6246,7 @@ var methods = {
 });
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6140,17 +6254,13 @@ var methods = {
 /* unused harmony export intersects */
 /* unused harmony export area */
 /* unused harmony export methods */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 var square = function square(n) {
   return Math.pow(n, 2);
-};
-
-var getCoordPercentage = function getCoordPercentage(e) {
-  return {
-    x: e.nativeEvent.offsetX / e.currentTarget.offsetWidth * 100,
-    y: e.nativeEvent.offsetY / e.currentTarget.offsetHeight * 100
-  };
 };
 
 var TYPE = 'OVAL';
@@ -6179,7 +6289,7 @@ function area(geometry) {
 var methods = {
   onMouseDown: function onMouseDown(annotation, e) {
     if (!annotation.selection) {
-      var _getCoordPercentage = getCoordPercentage(e),
+      var _getCoordPercentage = Object(__WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__["a" /* getCoordPercentage */])(e),
           anchorX = _getCoordPercentage.x,
           anchorY = _getCoordPercentage.y;
 
@@ -6227,7 +6337,7 @@ var methods = {
           anchorX = _annotation$selection.anchorX,
           anchorY = _annotation$selection.anchorY;
 
-      var _getCoordPercentage2 = getCoordPercentage(e),
+      var _getCoordPercentage2 = Object(__WEBPACK_IMPORTED_MODULE_0__utils_offsetCoordinates__["a" /* getCoordPercentage */])(e),
           newX = _getCoordPercentage2.x,
           newY = _getCoordPercentage2.y;
 

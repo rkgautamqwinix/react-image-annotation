@@ -14,7 +14,9 @@ var fadeInScale = keyframes(_templateObject);
 var Container = styled.div(_templateObject2, fadeInScale);
 
 function Editor(props) {
-  var geometry = props.annotation.geometry;
+  var _props$annotation = props.annotation,
+      geometry = _props$annotation.geometry,
+      selection = _props$annotation.selection;
 
   if (!geometry) return null;
 
@@ -29,6 +31,7 @@ function Editor(props) {
       }, props.style)
     },
     React.createElement(TextEditor, {
+      annotation: props.annotation,
       onChange: function onChange(e) {
         return props.onChange(_extends({}, props.annotation, {
           data: _extends({}, props.annotation.data, {
@@ -36,7 +39,10 @@ function Editor(props) {
           })
         }));
       },
-      onSubmit: props.onSubmit,
+      isUpdate: selection.isUpdate,
+      onSubmit: props.onCreate,
+      onUpdate: props.onUpdate,
+      onDelete: props.onDelete,
       value: props.annotation.data && props.annotation.data.text
     })
   );
