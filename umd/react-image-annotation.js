@@ -2151,7 +2151,7 @@ var styled = _styled(StyledComponent, constructWithOptions);
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getOffsetCoordPercentage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getCoordPercentage; });
-function getOffsetCoordinates(e, container) {
+function getOffsetCoordPercentage(e, container) {
     // nativeEvent.offsetX gives inconsistent results when dragging
     // up and to the left rather than the more natural down and to the
     // right. The reason could be browser implementation (it is still experimental)
@@ -2161,20 +2161,10 @@ function getOffsetCoordinates(e, container) {
     var rect = container.getBoundingClientRect();
     var offsetX = e.clientX - rect.x;
     var offsetY = e.clientY - rect.y;
-    return {
-        offsetX: offsetX,
-        offsetY: offsetY
-    };
-}
-
-function getOffsetCoordPercentage(e, container) {
-    var _getOffsetCoordinates = getOffsetCoordinates(e, container),
-        offsetX = _getOffsetCoordinates.offsetX,
-        offsetY = _getOffsetCoordinates.offsetY;
 
     return {
-        x: offsetX / container.offsetWidth * 100,
-        y: offsetY / container.offsetHeight * 100
+        x: offsetX / rect.width * 100,
+        y: offsetY / rect.height * 100
     };
 }
 
