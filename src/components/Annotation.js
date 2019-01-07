@@ -216,31 +216,6 @@ export default compose(
     }
   }
 
-  // Show editor by calling renderEditor, if renderEditor returns an element it
-  // will be displayed inline within Annotation
-  onShowEditor = () => {
-    if (!this.state.showEditor) {
-      // prevent spamming parent with multiple show editor events
-      this.setState({ showEditor: true });
-    }
-    const props = this.props;    
-    return this.props.renderEditor({
-      annotation: props.value,
-      onChange: props.onChange,
-      onCreate: this.onCreate,
-      onUpdate: props.onUpdate,
-      onDelete: props.onDelete
-    });
-  }
-
-  onHideEditor = () => {
-    if (this.state.showEditor) {
-      // prevent spamming parent with multiple hide events
-      this.setState({ showEditor: false });
-      this.props.onHideEditor();
-    }
-  }
-
   // Handle selection of existing annotations to support update or delete
   //
   // Check if parent has enabled edit or delete
@@ -256,7 +231,7 @@ export default compose(
     const { props } = this
     const {
       isMouseHovering,
-
+      renderEditor,
       renderHighlight,
       renderContent,
       renderSelector,
@@ -323,8 +298,16 @@ export default compose(
         ))}
         {!props.disableEditor
           && (props.value
-            && props.value.selection
-            && props.value.selection.showEditor ? this.onShowEditor() : this.onHideEditor())
+              && props.value.selection
+              && props.value.selection.showEditor 
+              && renderEditor({
+                    annotation: props.value,
+                    onChange: props.onChange,
+                    onCreate: this.onCreate,
+                    onUpdate: props.onUpdate,
+                    onDelete: props.onDelete
+                  })
+              )
         }
         <div>{props.children}</div>
       </Container>
