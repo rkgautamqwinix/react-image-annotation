@@ -31,6 +31,8 @@ const Container = styled.div`
 function Editor (props) {
   const { geometry, selection } = props.annotation
   if (!geometry) return null
+  let topPosition = geometry.y + geometry.height 
+  topPosition = topPosition > 80 : 80 : topPosition
   
   return (
     <Container
@@ -38,7 +40,7 @@ function Editor (props) {
       style={{
         position: 'absolute',
         left: `${geometry.x}%`,
-        top: `${geometry.y + geometry.height}%`,
+        top: `${topPosition}%`,
         ...props.style
       }}
     >
