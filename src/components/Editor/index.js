@@ -32,7 +32,7 @@ function Editor (props) {
   const { geometry, selection } = props.annotation
   if (!geometry) return null
   let topPosition = geometry.y + geometry.height 
-  topPosition = topPosition > 80 : 80 : topPosition
+  topPosition = topPosition > 80 ? 80 : topPosition
   
   return (
     <Container
